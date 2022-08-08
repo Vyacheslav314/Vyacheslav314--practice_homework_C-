@@ -1,12 +1,18 @@
-﻿Console.WriteLine("Что бы завершить цикл введите exit ");
-string endCycle = Console.ReadLine();
+Console.WriteLine("Что бы завершить цикл введите exit ");
 
-while (endCycle != "exit")
+string endCyc = "exit";
+int i = 0;
+while (true)
 {
-    endCycle = Console.ReadLine();
-    if (endCycle == "exit")
+    i++;
+    string endCycle = Console.ReadLine();
+    Console.WriteLine(i);
+    
+    if (endCycle.ToLower() == endCyc)
     {
-        Console.WriteLine("УСПЕХ!!!!! ");
+        
+        break ;
+                
     }
     
 }
