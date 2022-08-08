@@ -4,7 +4,7 @@ Random rnd = new Random();
 int value = rnd.Next(0, 10);
 int numberAttempts = 3;
 int index = 1;
-
+Console.WriteLine(value);
 while (index <= numberAttempts)
 {
     index++;
