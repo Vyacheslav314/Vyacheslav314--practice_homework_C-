@@ -3,8 +3,8 @@ int number = Convert.ToInt32(Console.ReadLine());
 Random rnd = new Random();
 int value = rnd.Next(0, 10);
 int numberAttempts = 3;
-int index = 1;
-
+int index = 0;
+Console.WriteLine(value);
 while (index != numberAttempts)
 {
     if (number > value)
@@ -17,7 +17,7 @@ while (index != numberAttempts)
         Console.WriteLine(number + " меньше загаданного числа");
         number = Convert.ToInt32(Console.ReadLine());
     }
-    else
+    else 
     {
         Console.WriteLine("Поздравляю это правельный ответ ");
         break;
@@ -26,6 +26,7 @@ while (index != numberAttempts)
     if (index == numberAttempts)
     {
         Console.WriteLine("Превышенно количество попыток ");
+        break ;
     }   
 }
 
