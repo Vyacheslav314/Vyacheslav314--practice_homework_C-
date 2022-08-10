@@ -44,7 +44,7 @@ void Verificatin(string str, string str1)
         string inputPassword = ReadInt("Введите пароль ");
         if (inputPassword == password)
         {
-            Console.WriteLine(message);
+            Console.WriteLine("Здравствуйте " + message);
             break;
         }
         if(str == null)
