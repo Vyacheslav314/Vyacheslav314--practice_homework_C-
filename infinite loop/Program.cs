@@ -12,7 +12,12 @@ while (isValid)
             HelpCommand();
             break;
         case "setname":
+        if (name == null)
             name = EnterName();
+            else
+            {
+                name = NameChange(name);
+            }
             break;
         case "setpassword":
             if (password == null)
@@ -38,6 +43,32 @@ while (isValid)
             }
 
     }
+}
+
+string NameChange(string userName)
+{
+string nameUser = userName;
+    int inputAttempt = 1;
+
+    while (inputAttempt <= 3)
+    {
+        inputAttempt++;
+        string inputPassword = ReadInt("Введите пароль: ");
+        if (inputPassword == password)
+        {
+            nameUser = ReadInt("Введите новое имя : ");
+            break;
+        }
+        else if (inputPassword != password && inputAttempt <= 3)
+        {
+            Console.WriteLine("Вы ввели неверный пароль. Попробуйте еще раз: ");
+        }
+        if (inputAttempt > 3)
+        {
+            Console.WriteLine("Превышенно колличество попыток ");
+        }
+    }
+    return nameUser;
 }
 
 string PasswordChange(string userPassword)
