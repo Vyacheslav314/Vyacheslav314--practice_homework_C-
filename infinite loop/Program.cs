@@ -1,43 +1,86 @@
-﻿string message = ReadInt("Введите help  что увидеть список команд: ");
-string userName = null;
+﻿string name = null;
 string password = null;
+bool isValid = true;
 
-while (true)
+while (isValid)
 {
-    if (message == "Help")
+    string message = ReadInt("Введите команду, либо введите Help, что бы увидеть список команд: ");
+
+    switch (message.ToLower())
     {
-        HelpCommand();
-    }
-    if (message == "SetName")
-    {
-        userName = SetName();
-    }
-    if (message == "SetPassword")
-    {
-        password = SetPassword();
-    }
-    if (message == "WriteName")
-    {
-        Verificatin(userName, password);
-    }
-    if (message == "Exit")
-    {
-        Console.WriteLine("программа завершена!!!");
-        break;
-    }
-    else
-    {
-        message = ReadInt("Введите следующую команду: ");
+        case "help":
+            HelpCommand();
+            break;
+        case "setname":
+            name = EnterName();
+            break;
+        case "setpassword":
+            if (password == null)
+            {
+                password = EnterPassword();
+            }
+            else
+            {
+                password = PasswordChange(password);
+            }
+            break;
+        case "writename":
+            Verificatin(name, password);
+            break;
+        case "exit":
+            Console.WriteLine("программа завершена!!!");
+            isValid = false;
+            break;
+        default:
+            {
+                Console.WriteLine("Команда " + message + " несуществует ");
+                break;
+            }
+
     }
 }
 
-
-void Verificatin(string str, string str1)
+string PasswordChange(string userPassword)
 {
-    string message = str;
-    string password = str1;
+    string userPass = userPassword;
     int inputAttempt = 1;
 
+    while (inputAttempt <= 3)
+    {
+        inputAttempt++;
+        string inputPassword = ReadInt("Введите пароль: ");
+        if (inputPassword == password)
+        {
+            userPass = ReadInt("Введите новый пароль: ");
+            break;
+        }
+        else if (inputPassword != password && inputAttempt <= 3)
+        {
+            Console.WriteLine("Вы ввели неверный пароль. Попробуйте еще раз: ");
+        }
+        if (inputAttempt > 3)
+        {
+            Console.WriteLine("Превышенно колличество попыток ");
+        }
+    }
+    return userPass;
+}
+
+void Verificatin(string usName, string usPass)
+{
+    string message = name;
+    string password = usPass;
+    int inputAttempt = 1;
+    if (usName == null)
+    {
+        Console.WriteLine("Имя пользователя не назначено. Что бы узнать команду для назначения имени введите Help ");
+        return;
+    }
+    if (usPass == null)
+    {
+        Console.WriteLine("Пароль не назначен. Что бы узнать команду для назначения пароля введите Help ");
+        return;
+    }
     while (inputAttempt <= 3)
     {
         inputAttempt++;
@@ -45,16 +88,6 @@ void Verificatin(string str, string str1)
         if (inputPassword == password)
         {
             Console.WriteLine("Здравствуйте " + message);
-            break;
-        }
-        if(str == null)
-        {
-          Console.WriteLine("Имя пользователя не назначено. Что бы узнать команду для назначения имени введите Help ");
-          break;   
-        }
-        if(str1 == null)
-        {
-            Console.WriteLine("Пароль не назначен. Что бы узнать команду для назначения пароля введите Help ");
             break;
         }
         else if (inputPassword != password && inputAttempt <= 3)
@@ -68,26 +101,29 @@ void Verificatin(string str, string str1)
     }
 }
 
-string SetPassword()
+
+
+string EnterPassword()
 {
     string pass = ReadInt("Создайте пароль ");
     return pass;
 }
 
-string SetName()
+
+string EnterName()
 {
     string setUserName = ReadInt("Введите ваше имя: ");
     return setUserName;
 }
 
+
 void HelpCommand()
 {
     Console.WriteLine("Введите SetName что бы указать имя пользователя: ");
-    Console.WriteLine("Введите SetPassword что бы внести пароль: ");
-    Console.WriteLine("Введите exit что бы завершить программу: ");
+    Console.WriteLine("Введите SetPassword что бы создать пароль: ");
+    Console.WriteLine("Введите Exit что бы завершить программу: ");
     Console.WriteLine("Введите WriteName что бы показать имя пользователя: ");
 }
-
 
 
 string ReadInt(string message)
