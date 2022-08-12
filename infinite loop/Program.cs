@@ -41,7 +41,6 @@ while (isValid)
                 Console.WriteLine("Команда " + message + " несуществует ");
                 break;
             }
-
     }
 }
 
