@@ -1,6 +1,7 @@
 ﻿string name = null;
 string password = null;
 bool isValid = true;
+bool changeUserData = false;
 
 while (isValid)
 {
@@ -12,24 +13,40 @@ while (isValid)
             HelpCommand();
             break;
         case "setname":
-            if (name == null)
-                name = EnterName();
-            else
+            changeUserData = ChangeData(name);
+           
+            if (changeUserData)
             {
-                name = NameChange(name);
+                if(password != null)
+                {
+                Verificatin(name, password);
+                }
             }
+            name = EnterName();
             break;
         case "setpassword":
-            if (password == null)
+            changeUserData = ChangeData(password);
+
+            if (changeUserData)
             {
-                password = EnterPassword();
+                if(name != null)
+                {
+                Verificatin(name, password);
+                }
             }
-            else
-            {
-                password = PasswordChange(password);
-            }
+            password = EnterPassword();
             break;
         case "writename":
+            if (name == null)
+            {
+                Console.WriteLine("Имя пользователя не назначено. Что бы узнать команду для назначения имени введите Help ");
+                break;
+            }
+            if (password == null)
+            {
+                Console.WriteLine("Пароль не назначен. Что бы узнать команду для назначения пароля введите Help ");
+                break;
+            }
             Verificatin(name, password);
             break;
         case "exit":
@@ -44,57 +61,19 @@ while (isValid)
     }
 }
 
-string NameChange(string userName)
-{
-    string nameUser = userName;
-    int inputAttempt = 1;
 
-    while (inputAttempt <= 3)
+bool ChangeData(string userData)
+{
+    if (userData != null)
     {
-        inputAttempt++;
-        string inputPassword = ReadInt("Введите пароль: ");
-        if (inputPassword == password)
-        {
-            nameUser = ReadInt("Введите новое имя : ");
-            break;
-        }
-        else if (inputPassword != password && inputAttempt <= 3)
-        {
-            Console.WriteLine("Вы ввели неверный пароль. Попробуйте еще раз: ");
-        }
-        if (inputAttempt > 3)
-        {
-            Console.WriteLine("Превышенно колличество попыток ");
-        }
+        return true;
     }
-    return nameUser;
+    else
+    {
+        return false;
+    }
 }
 
-string PasswordChange(string userPassword)
-{
-    string userPass = userPassword;
-    int inputAttempt = 1;
-
-    while (inputAttempt <= 3)
-    {
-        inputAttempt++;
-        string inputPassword = ReadInt("Введите пароль: ");
-        if (inputPassword == password)
-        {
-            userPass = ReadInt("Введите новый пароль: ");
-            break;
-        }
-        else if (inputPassword != password && inputAttempt <= 3)
-        {
-            Console.WriteLine("Вы ввели неверный пароль. Попробуйте еще раз: ");
-        }
-        if (inputAttempt > 3)
-        {
-            Console.WriteLine("Превышенно колличество попыток ");
-        }
-    }
-    return userPass;
-}
 
 void Verificatin(string usName, string usPass)
 {
@@ -102,17 +81,6 @@ void Verificatin(string usName, string usPass)
     string password = usPass;
     int inputAttempt = 1;
 
-    if (usName == null)
-    {
-        Console.WriteLine("Имя пользователя не назначено. Что бы узнать команду для назначения имени введите Help ");
-        return;
-    }
-    if (usPass == null)
-    {
-        Console.WriteLine("Пароль не назначен. Что бы узнать команду для назначения пароля введите Help ");
-        return;
-
-    }
     while (inputAttempt <= 3)
     {
         inputAttempt++;
@@ -133,7 +101,6 @@ void Verificatin(string usName, string usPass)
         }
     }
 }
-
 
 
 string EnterPassword()
