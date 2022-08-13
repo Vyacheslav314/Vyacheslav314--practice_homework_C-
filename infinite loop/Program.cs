@@ -1,7 +1,6 @@
 ﻿string name = null;
 string password = null;
 bool isValid = true;
-bool changeUserData = false;
 
 while (isValid)
 {
@@ -13,28 +12,24 @@ while (isValid)
             HelpCommand();
             break;
         case "setname":
-            changeUserData = ChangeData(name);
-           
-            if (changeUserData)
-            {
-                if(password != null)
-                {
-                Verificatin(name, password);
-                }
-            }
+        if(name == null)
+        {
             name = EnterName();
+        }
+        else 
+        {
+            Console.WriteLine("Ваше имя записано ");
+        }
             break;
         case "setpassword":
-            changeUserData = ChangeData(password);
-
-            if (changeUserData)
-            {
-                if(name != null)
-                {
-                Verificatin(name, password);
-                }
-            }
+        if(password == null)
+        {
             password = EnterPassword();
+        }
+        else 
+        {
+            Console.WriteLine("Ваш пароль уже создан ");
+        }
             break;
         case "writename":
             if (name == null)
@@ -49,6 +44,20 @@ while (isValid)
             }
             Verificatin(name, password);
             break;
+            case "changeuser":
+            if(name != null && password != null)
+            {
+                Verificatin(name, password);
+                Console.WriteLine("Введите новые данные ");
+                name = EnterName();
+                password = EnterPassword();
+            }
+            else
+            {
+                Console.WriteLine("Имя пользователя или пароль не назначены ");
+            }
+            break;
+
         case "exit":
             Console.WriteLine("программа завершена!!!");
             isValid = false;
@@ -58,19 +67,6 @@ while (isValid)
                 Console.WriteLine("Команда " + message + " несуществует ");
                 break;
             }
-    }
-}
-
-
-bool ChangeData(string userData)
-{
-    if (userData != null)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
     }
 }
 
@@ -123,6 +119,7 @@ void HelpCommand()
     Console.WriteLine("Введите SetPassword что бы создать пароль: ");
     Console.WriteLine("Введите Exit что бы завершить программу: ");
     Console.WriteLine("Введите WriteName что бы показать имя пользователя: ");
+    Console.WriteLine("Введите ChangeUser что сменить имя и пароль: ");
 }
 
 
