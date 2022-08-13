@@ -12,8 +12,8 @@ while (isValid)
             HelpCommand();
             break;
         case "setname":
-        if (name == null)
-            name = EnterName();
+            if (name == null)
+                name = EnterName();
             else
             {
                 name = NameChange(name);
@@ -41,13 +41,12 @@ while (isValid)
                 Console.WriteLine("Команда " + message + " несуществует ");
                 break;
             }
-
     }
 }
 
 string NameChange(string userName)
 {
-string nameUser = userName;
+    string nameUser = userName;
     int inputAttempt = 1;
 
     while (inputAttempt <= 3)
@@ -102,6 +101,7 @@ void Verificatin(string usName, string usPass)
     string message = name;
     string password = usPass;
     int inputAttempt = 1;
+
     if (usName == null)
     {
         Console.WriteLine("Имя пользователя не назначено. Что бы узнать команду для назначения имени введите Help ");
@@ -111,11 +111,13 @@ void Verificatin(string usName, string usPass)
     {
         Console.WriteLine("Пароль не назначен. Что бы узнать команду для назначения пароля введите Help ");
         return;
+
     }
     while (inputAttempt <= 3)
     {
         inputAttempt++;
         string inputPassword = ReadInt("Введите пароль ");
+
         if (inputPassword == password)
         {
             Console.WriteLine("Здравствуйте " + message);
