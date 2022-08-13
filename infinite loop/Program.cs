@@ -119,7 +119,7 @@ void HelpCommand()
     Console.WriteLine("Введите SetPassword что бы создать пароль: ");
     Console.WriteLine("Введите Exit что бы завершить программу: ");
     Console.WriteLine("Введите WriteName что бы показать имя пользователя: ");
-    Console.WriteLine("Введите ChangeUser что сменить имя и пароль: ");
+    Console.WriteLine("Введите ChangeUser что бы сменить имя и пароль: ");
 }
 
 
