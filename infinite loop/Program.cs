@@ -12,24 +12,24 @@ while (isValid)
             HelpCommand();
             break;
         case "setname":
-        if(name == null)
-        {
-            name = EnterName();
-        }
-        else 
-        {
-            Console.WriteLine("Ваше имя записано ");
-        }
+            if (name == null)
+            {
+                name = EnterName();
+            }
+            else
+            {
+                Console.WriteLine("Ваше имя записано ");
+            }
             break;
         case "setpassword":
-        if(password == null)
-        {
-            password = EnterPassword();
-        }
-        else 
-        {
-            Console.WriteLine("Ваш пароль уже создан ");
-        }
+            if (password == null)
+            {
+                password = EnterPassword();
+            }
+            else
+            {
+                Console.WriteLine("Ваш пароль уже создан ");
+            }
             break;
         case "writename":
             if (name == null)
@@ -44,8 +44,8 @@ while (isValid)
             }
             Verificatin(name, password);
             break;
-            case "changeuser":
-            if(name != null && password != null)
+        case "changeuser":
+            if (name != null && password != null)
             {
                 Verificatin(name, password);
                 Console.WriteLine("Введите новые данные ");
