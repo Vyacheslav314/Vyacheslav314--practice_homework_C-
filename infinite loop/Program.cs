@@ -63,10 +63,8 @@ while (isValid)
             isValid = false;
             break;
         default:
-            {
                 Console.WriteLine("Команда " + message + " несуществует ");
                 break;
-            }
     }
 }
 
@@ -128,4 +126,3 @@ string ReadInt(string message)
     Console.Write(message);
     return Console.ReadLine();
 }
-
