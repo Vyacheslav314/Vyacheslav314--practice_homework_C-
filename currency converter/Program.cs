@@ -1,7 +1,7 @@
-﻿int usdBalance = 10;
-int rubBalance = 1000;
-int euroBalance = 70;
-int funtBalance = 50;
+﻿double usdBalance = 10;
+double rubBalance = 1000;
+double euroBalance = 70;
+double funtBalance = 50;
 
 // равенство по отношению к условной единице: rub 1 к 1; usd 1 к 60; euro 1 к 70; funt 1 к 100;
 
@@ -10,6 +10,8 @@ int rubRate = 1;
 int euroRate = 70;
 int funtRate = 100;
 bool isValid = true;
+
+
 
 while (isValid)
 {
@@ -25,7 +27,15 @@ while (isValid)
 
             break;
         case "convert":
-            Console.WriteLine(Converter(SelectionCurency(), SelectionCurency()));
+            int fromAccount = TakeScore();
+            int onAccount = PutScore();
+            double amountTransferred = Amount();
+            double coefficient = Math.Round(RatioConverter(fromAccount, onAccount), 3);
+            double amountFinalCurrency = ConvertAmount(amountTransferred, coefficient);
+            Console.WriteLine(amountFinalCurrency + " Сумма перевода в конечной валюте ");
+            double resultStartScore = ChangesStartingWallet(fromAccount, amountFinalCurrency);
+            double resultFinalScore = ChangesFinalWallet(onAccount, amountFinalCurrency);
+
             break;
         case "exit":
             Console.WriteLine("программа завершена!!!");
@@ -37,11 +47,39 @@ while (isValid)
     }
 }
 
-double SelectionCurency()
+
+
+double ChangesFinalWallet(double onScore, double amount)
 {
-    Console.WriteLine("Введите введите номер счета 1.usd 2.rub 3.euro. 4.funt ");
-    double numberScore = Convert.ToDouble(Console.ReadLine());
-    if(numberScore == 1)
+    double resultScore = onScore + amount;
+    Console.WriteLine(resultScore);
+    return resultScore;
+}
+
+double ChangesStartingWallet(double fromScore, double amount)
+{
+    double resultScore = fromScore - amount;
+     Console.WriteLine(resultScore);
+    return resultScore;
+}
+
+double ConvertAmount(double amount, double coef)
+{
+    double result = amount * coef;
+    return result;
+}
+
+double Amount()
+{
+    double amount = Convert.ToDouble(ReadCommand("Сколько вы хотите перевести "));
+    return amount;
+}
+
+int PutScore()
+{
+    Console.WriteLine("Введите номер счета на который хотите перевести средства: 1.usd 2.rub 3.euro. 4.funt ");
+    int numberScore = Convert.ToInt32(Console.ReadLine());
+    if (numberScore == 1)
     {
         return usdRate;
     }
@@ -60,13 +98,34 @@ double SelectionCurency()
     return numberScore;
 }
 
-double Converter(double firstRateValut, double secondRateValut)
+int TakeScore()
 {
-    double ratio = firstRateValut / secondRateValut;
-    double result = ratio;
-    return result;
+    Console.WriteLine("Введите номер счета c которого хотите перевести средства: 1.usd 2.rub 3.euro. 4.funt ");
+    int numberScore = Convert.ToInt32(Console.ReadLine());
+    if (numberScore == 1)
+    {
+        return usdRate;
+    }
+    else if (numberScore == 2)
+    {
+        return rubRate;
+    }
+    else if (numberScore == 3)
+    {
+        return euroRate;
+    }
+    else if (numberScore == 4)
+    {
+        return funtRate;
+    }
+    return numberScore;
 }
 
+double RatioConverter(double firstRateValut, double secondRateValut)
+{
+    double ratio = firstRateValut / secondRateValut;
+    return ratio;
+}
 
 void HelpCommand()
 {
@@ -94,7 +153,7 @@ void ShowBalance()
             case "3":
                 Console.WriteLine("На вашем счёте находится " + euroBalance + " euro ");
                 break;
-            case "4": 
+            case "4":
                 Console.WriteLine("На вашем счёте находится " + funtBalance + " funt ");
                 break;
             case "end":
