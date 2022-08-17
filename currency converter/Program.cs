@@ -33,9 +33,6 @@ while (isValid)
             double coefficient = Math.Round(RatioConverter(fromAccount, onAccount), 3);
             double amountFinalCurrency = ConvertAmount(amountTransferred, coefficient);
             Console.WriteLine(amountFinalCurrency + " Сумма перевода в конечной валюте ");
-            double resultStartScore = ChangesStartingWallet(fromAccount, amountFinalCurrency);
-            double resultFinalScore = ChangesFinalWallet(onAccount, amountFinalCurrency);
-
             break;
         case "exit":
             Console.WriteLine("программа завершена!!!");
@@ -48,20 +45,6 @@ while (isValid)
 }
 
 
-
-double ChangesFinalWallet(double onScore, double amount)
-{
-    double resultScore = onScore + amount;
-    Console.WriteLine(resultScore);
-    return resultScore;
-}
-
-double ChangesStartingWallet(double fromScore, double amount)
-{
-    double resultScore = fromScore - amount;
-     Console.WriteLine(resultScore);
-    return resultScore;
-}
 
 double ConvertAmount(double amount, double coef)
 {
