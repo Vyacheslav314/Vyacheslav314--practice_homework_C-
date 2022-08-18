@@ -1,21 +1,20 @@
 ﻿double usdBalance = 10;
 double rubBalance = 1000;
 double euroBalance = 70;
-double funtBalance = 50;
+double gbpBalance = 50;
 
 // равенство по отношению к условной единице: rub 1 к 1; usd 1 к 60; euro 1 к 70; funt 1 к 100;
 
 int usdRate = 60;
 int rubRate = 1;
 int euroRate = 70;
-int funtRate = 100;
+int gbpRate = 100;
 bool isValid = true;
-
 
 
 while (isValid)
 {
-    string message = ReadCommand("Введите команду ");
+    string message = ReadCommand("Введите команду, либо введите Help что бы увидеть список команд: ");
 
     switch (message.ToLower())
     {
@@ -30,9 +29,14 @@ while (isValid)
             int fromAccount = TakeScore();
             int onAccount = PutScore();
             double amountTransferred = Amount();
-            double coefficient = Math.Round(RatioConverter(fromAccount, onAccount), 3);
-            double amountFinalCurrency = ConvertAmount(amountTransferred, coefficient);
-            Console.WriteLine(amountFinalCurrency + " Сумма перевода в конечной валюте ");
+            double coefficient = RatioConverter(fromAccount, onAccount);
+            double amountFinalCurrency = Math.Round(ConvertAmount(amountTransferred, coefficient), 2);
+            ChangesBalanceFirstWallet(fromAccount, amountTransferred);
+            ChangesBalanceFinalWallet(onAccount, amountFinalCurrency);
+            Console.WriteLine("Вы хотите перевести " + amountFinalCurrency + " В конечной валюте! ");
+            Console.WriteLine("Если вы ещё не закончили с переводами снова введите convert: ");
+            
+            
             break;
         case "exit":
             Console.WriteLine("программа завершена!!!");
@@ -44,7 +48,85 @@ while (isValid)
     }
 }
 
+void ChangesBalanceFinalWallet(int onAcc, double amountCurrency)
+{
+    if (onAcc == usdRate)
+    {
+        if (usdBalance != 0)
+        {
+        usdBalance = usdBalance + amountCurrency;
+        }
+    }
+    else if (onAcc == rubRate)
+    {
+        if (rubBalance != 0)
+        {
+        rubBalance = rubBalance + amountCurrency;
+        }
+    }
+    else if (onAcc == euroRate)
+    {
+        if (euroBalance != 0)
+        {
+        euroBalance = euroBalance + amountCurrency;
+        }
+    }
+    else if (onAcc == gbpRate)
+    {
+        if (gbpBalance != 0)
+        {
+        gbpBalance = gbpBalance + amountCurrency;
+        }
+    }
+}
 
+void ChangesBalanceFirstWallet(int fromAcc, double amountTransf)
+{
+    if (fromAcc == usdRate)
+    {
+        if (usdBalance >= amountTransf)
+        {
+            usdBalance = usdBalance - amountTransf; 
+        }
+        else
+        {
+            Console.WriteLine("На вашем счёте недостачно средств "); 
+        }
+    }
+    else if (fromAcc == rubRate)
+    {
+        if (rubBalance >= amountTransf)
+        {
+            rubBalance = rubBalance - amountTransf; 
+        }
+        else
+        {
+            Console.WriteLine("На вашем счёте недостачно средств "); 
+        }
+    }
+    else if (fromAcc == euroRate)
+    {
+        if (euroBalance >= amountTransf)
+        {
+            euroBalance = euroBalance - amountTransf; 
+        }
+        else
+        {
+            Console.WriteLine("На вашем счёте недостачно средств "); 
+        }
+    }
+    else if (fromAcc == gbpRate)
+    {
+        if (gbpBalance >= amountTransf)
+        {
+            gbpBalance = gbpBalance - amountTransf; 
+        }
+        else
+        {
+            Console.WriteLine("На вашем счёте недостачно средств "); 
+        }
+    }
+}
 
 double ConvertAmount(double amount, double coef)
 {
@@ -76,14 +158,14 @@ int PutScore()
     }
     else if (numberScore == 4)
     {
-        return funtRate;
+        return gbpRate;
     }
     return numberScore;
 }
 
 int TakeScore()
 {
-    Console.WriteLine("Введите номер счета c которого хотите перевести средства: 1.usd 2.rub 3.euro. 4.funt ");
+    Console.WriteLine("Введите номер счета на который хотите перевести средства: 1.usd 2.rub 3.euro. 4.funt ");
     int numberScore = Convert.ToInt32(Console.ReadLine());
     if (numberScore == 1)
     {
@@ -99,7 +181,7 @@ int TakeScore()
     }
     else if (numberScore == 4)
     {
-        return funtRate;
+        return gbpRate;
     }
     return numberScore;
 }
@@ -137,7 +219,7 @@ void ShowBalance()
                 Console.WriteLine("На вашем счёте находится " + euroBalance + " euro ");
                 break;
             case "4":
-                Console.WriteLine("На вашем счёте находится " + funtBalance + " funt ");
+                Console.WriteLine("На вашем счёте находится " + gbpBalance + " funt ");
                 break;
             case "end":
                 valid = false;
