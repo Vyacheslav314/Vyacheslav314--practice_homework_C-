@@ -59,7 +59,11 @@ while (isValid)
             {
                 resultConvert = ResultConvert(result, amount);
             }
-            ChangingFirstAccount(balance, firstAcc, amount);
+            bool valid =  ChangingFirstAccount(balance, firstAcc, amount);
+            if (valid)
+            {
+                balance[firstAcc] = balance[firstAcc] - amount;
+            }
             ChangingFinalAccount(balance, secondAcc, resultConvert);
             break;
         case "exit":
@@ -96,8 +100,9 @@ void ChangingFinalAccount(double[] arrBalance, int secondAccount, double resultC
     }
 }
 
-void ChangingFirstAccount(double[] arrBalance, int firstAccount, double amountСurrency)
+bool ChangingFirstAccount(double[] arrBalance, int firstAccount, double amountСurrency)
 {
+    bool valid = true; 
     for (int i = 0; i < arrBalance.Length; i++)
     {
         if (i == firstAccount)
@@ -105,11 +110,11 @@ void ChangingFirstAccount(double[] arrBalance, int firstAccount, double amountС
             if (arrBalance[i] <= 0 || amountСurrency > arrBalance[i])
             {
                 Console.WriteLine("На вашем счете недостаточно средств!!! ");
-                return;
+                valid = false;
             }
-            arrBalance[i] = arrBalance[i] - amountСurrency;
         }
     }
+    return valid;
 }
 
 double ResultConvert(double coeff, double amountСurrency)
