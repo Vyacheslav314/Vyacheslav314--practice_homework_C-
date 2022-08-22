@@ -45,12 +45,9 @@ void PrintArray(int[] arr)
 int[] AddToArray(int[] arr, int addElem)
 {
     int[] newArray = new int[arr.Length + 1];
-    for (int i = 0; i < newArray.Length; i++)
+    for (int i = 0; i < arr.Length; i++)
     {
-        if (i < arr.Length)
-        {
-            newArray[i] = arr[i];
-        }
+        newArray[i] = arr[i];
     }
     newArray[arr.Length] = addElem;
     return newArray;
