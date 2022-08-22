@@ -19,6 +19,8 @@
 PrintArray(tetris);
 MovementFigures(1, 7);
 
+
+
 void MovementFigures(int row, int col)
 {
     if (tetris[row, col] == 0)
@@ -27,24 +29,18 @@ void MovementFigures(int row, int col)
         int comm = Convert.ToInt32(Console.ReadLine());
         PrintArray(tetris);
         bool isValid = true;
-        while(isValid)
-        {
-        switch (comm)
-        {
-            case 1:
-                MovementFigures(row++, col++);
-                PrintArray(tetris);
-                break;
-            case 2:
-                MovementFigures(row++, col--);
-                
-                PrintArray(tetris);
-                break;
-                case 3:
-                isValid = false;
-                break;
-        }
-        }
+            switch (comm)
+            {
+                case 1:
+                    MovementFigures(row++, col++);
+                    MovementFigures(row, col);
+                    break;
+                case 2:
+                    MovementFigures(row++, col--);
+                    MovementFigures(row, col);
+                    break;
+            }
+        
     }
 }
 

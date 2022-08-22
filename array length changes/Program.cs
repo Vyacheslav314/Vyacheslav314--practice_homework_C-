@@ -1,22 +1,35 @@
 ﻿int[] array = { 1, 5, 7, 8 };
+int number = ReadCommand(
+    "Введите 1 что бы добавить элемент массива. Введите 2 что удалить элемнт массива "
+);
 
 PrintArray(array);
-Console.WriteLine();
-PrintArray(AddToArray(array));
-Console.WriteLine();
-PrintArray(RemoveFromArray(array));
 
-int[] RemoveFromArray(int[] arr)
+switch (number)
+{
+    case 1:
+        int addedElem = ReadCommand("Введите число которое хотите добавить в массив ");
+        PrintArray(AddToArray(array, addedElem));
+        break;
+    case 2:
+        int delIndex = ReadCommand("Укажите индекс массива который нужно удалить ");
+        PrintArray(RemoveFromArray(array, delIndex));
+        break;
+}
+
+int[] RemoveFromArray(int[] arr, int index)
 {
     int[] newArray = new int[arr.Length - 1];
-    int number = ReadCommand("Укажите индекс который нужно удалить ");
-    for (int i = 0; i < number; i++)
+    for (int i = 0; i < newArray.Length; i++)
     {
-        newArray[i] = arr[i];
-    }
-    for (int j = number + 1; j < newArray.Length + 1; j++)
-    {
-        newArray[j - 1] = arr[j];
+        if (i < index)
+        {
+            newArray[i] = arr[i];
+        }
+        else if (i >= index)
+        {
+            newArray[i] = arr[i + 1];
+        }
     }
     return newArray;
 }
@@ -29,21 +42,17 @@ void PrintArray(int[] arr)
     }
 }
 
-int[] AddToArray(int[] arr)
+int[] AddToArray(int[] arr, int addElem)
 {
     int[] newArray = new int[arr.Length + 1];
-    int number = ReadCommand("Введите число которое хотите добавить в массив ");
     for (int i = 0; i < newArray.Length; i++)
     {
-        for (int j = 0; j < arr.Length; j++)
+        if (i < arr.Length)
         {
-            if (i >= j)
-            {
-                newArray[i] = arr[j];
-            }
+            newArray[i] = arr[i];
         }
-        newArray[arr.Length] = number;
     }
+    newArray[arr.Length] = addElem;
     return newArray;
 }
 
