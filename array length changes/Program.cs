@@ -1,20 +1,37 @@
 ﻿int[] array = { 1, 5, 7, 8 };
 int number = ReadCommand(
-    "Введите 1 что бы добавить элемент массива. Введите 2 что удалить элемнт массива "
+    "Введите 1 что бы добавить элемент массива. Введите 2 что удалить элемeнт массива. Введите 3 если хотите перемешать элементы "
 );
+//bool isValid = true;
 
-PrintArray(array);
+    switch (number)
+    {
+        case 1:
+            int addedElem = ReadCommand("Введите число которое хотите добавить в массив ");
+            PrintArray(AddToArray(array, addedElem));
+            break;
+        case 2:
+            int delIndex = ReadCommand("Укажите индекс массива который нужно удалить ");
+            PrintArray(RemoveFromArray(array, delIndex));
+            break;
+        case 3:
+            PrintArray(RandomMixArray(array));
+            break;
+        case 4:
+           // isValid = false;
+            break;
+    }
 
-switch (number)
+
+int[] RandomMixArray(int[] arr)
 {
-    case 1:
-        int addedElem = ReadCommand("Введите число которое хотите добавить в массив ");
-        PrintArray(AddToArray(array, addedElem));
-        break;
-    case 2:
-        int delIndex = ReadCommand("Укажите индекс массива который нужно удалить ");
-        PrintArray(RemoveFromArray(array, delIndex));
-        break;
+    int[] newArray = new int[arr.Length];
+    for (int i = 0; i < arr.Length; i++)
+    {    
+        newArray[i] = arr[new Random().Next(0, arr.Length)];
+        
+    }
+    return newArray;
 }
 
 int[] RemoveFromArray(int[] arr, int index)
