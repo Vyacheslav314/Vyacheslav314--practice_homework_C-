@@ -1,4 +1,6 @@
-﻿string number = ReadInt("Укажите номер строки ");
+﻿string number = ReadInt(
+    "Введите 2х значное число где первый элемент это индекс строки а второй индекс столбца "
+);
 int[,] arrayNumber2D = new int[3, 4];
 string subString = string.Empty;
 FillRandomNumbers2D(arrayNumber2D);
@@ -20,22 +22,26 @@ for (int i = 0; i < number.Length; i++)
         col = Convert.ToInt32(subString);
     }
 }
-if (row < arrayNumber2D.GetLength(0) && col < arrayNumber2D.GetLength(1))
+SearchArrayIndex(arrayNumber2D, row, col);
+void SearchArrayIndex(int[,] array, int row, int col)
 {
-    for (int i = 0; i < arrayNumber2D.GetLength(0); i++)
+    if (row < arrayNumber2D.GetLength(0) && col < arrayNumber2D.GetLength(1))
     {
-        for (int j = 0; j < arrayNumber2D.GetLength(1); j++)
+        for (int i = 0; i < arrayNumber2D.GetLength(0); i++)
         {
-            if (i == row && j == col)
+            for (int j = 0; j < arrayNumber2D.GetLength(1); j++)
             {
-                Console.WriteLine(arrayNumber2D[i, j]);
+                if (i == row && j == col)
+                {
+                    Console.WriteLine(arrayNumber2D[i, j]);
+                }
             }
         }
     }
-}
-else
-{
-    Console.WriteLine("Такого элемента нет ");
+    else
+    {
+        Console.WriteLine("Такого элемента нет ");
+    }
 }
 void FillRandomNumbers2D(int[,] array)
 {

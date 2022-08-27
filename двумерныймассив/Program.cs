@@ -24,7 +24,7 @@ void FillRandomNumbers2D(double[,] array)
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            array[i, j] = Math.Round(new Random().NextDouble() * (10.0 - (-10.0)) + (-10.0), 2);
+            array[i, j] = Math.Round(new Random().NextDouble() * (10.0 - (-10.0)) + (-10.0), 1);
         }
     }
 }
